@@ -1,0 +1,28 @@
+{
+    plugins: {
+         ros2dds: {
+              namespace: "/",
+              domain: 47,
+              allow: {
+                  publishers: [".*/features.*", ".*/gnn.*", ".*/image_rect_raw.*", ".*/image_raw.*", ".*/cut3r/current_pointcloud.*", ".*/cut3r/aggregated_pointcloud.*", ".*/cut3r/depth_map.*"],
+                  subscribers: [".*/features.*", ".*/gnn.*", ".*/image_rect_raw.*", ".*/image_raw.*", ".*/race13/color/image_raw.*", ".*/cut3r/current_pointcloud.*", ".*/cut3r/aggregated_pointcloud.*", ".*/cut3r/depth_map.*"],
+                  service_servers: [".*/mav_services/.*"],
+                  service_clients: [".*/mav_services/.*"],
+                  action_servers: [],
+                  action_clients: []
+             }
+      	 }
+    },
+
+    mode: "router",
+    connect: {
+        endpoints: [
+           //"tcp/128.238.47.60:7447", // race15 gamelab
+           //"tcp/128.238.47.55:7447", // race13 gamelab
+           //"tcp/10.18.160.89:7447", // race13 nyu
+           //"tcp/192.168.153.175:7447", // race13 doodle labs
+           //"tcp/10.18.184.14:7447", // race15 nyu
+           "tcp/10.18.160.89:7447", // yang-laptop nyu
+        ]
+    }
+}
