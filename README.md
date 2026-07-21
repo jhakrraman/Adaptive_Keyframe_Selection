@@ -8,14 +8,14 @@ RGB-D frame should become a keyframe. It warps the most recent keyframe into the
 view via depth-based reprojection, measures a hybrid photometric + structural (SSIM)
 error over the co-visible region, and thresholds it against a momentum-aware moving
 statistic so that redundant frames (static scenes, pure ego-motion) are skipped while
-genuinely novel or dynamic content triggers a keyframe. Pure NumPy + SciPy — no deep
+genuinely novel or dynamic content triggers a keyframe. Pure NumPy + SciPy, no deep
 learning framework required, so it drops in front of pipelines such as Spann3r / CUT3R.
 
 ## Files
 
 | File | Description |
 |------|-------------|
-| `adaptive_keyframe_selection.py` | Core method. Warping, hybrid error (Algorithm 1) and the momentum-aware selector (Algorithm 2). This is the only file you need to integrate. |
+| `adaptive_keyframe_selection.py` | Core method. Warping, hybrid error (Algorithm 1), and the momentum-aware selector (Algorithm 2). This is the only file you need to integrate. |
 | `demo_keyframe_selection.py` | Self-contained synthetic RGB-D demo (static → slow motion → fast motion → dynamic object). Runs the selector and saves a diagnostic plot. |
 | `keyframe_selection_demo.png` | Example output plot produced by the demo. |
 
@@ -83,6 +83,6 @@ Constructor arguments map to the paper's symbols (defaults shown):
   should be tuned to the scale of your images/depth. Defaults assume intensities in `[0, 1]`.
 - **Refractory decay (Eq. 7):** taken literally, `θ ← γ·θ` (γ<1) *lowers* the threshold and
   has no lasting effect (θ is recomputed from the window each step). This implementation
-  follows the described *intent* — after a selection the threshold is briefly *raised* and
+  follows the described *intent*: after a selection, the threshold is briefly *raised* and
   relaxes back by γ per frame, suppressing bursty selection. See the docstring for details;
   `decay=1.0` turns it off.
